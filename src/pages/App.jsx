@@ -115,9 +115,10 @@ function UserList(){
 
           {/* -------------Modal de recibo de pagamento------------ */}
           <div className="modal" style={{display: resul}}>
-              <span>Recibo de pagamento</span>
-              <p>O Pagamento <strong>{paymentError}</strong> <font color="green">foi</font> concluido com sucesso</p>
-              <button onClick={()=>{modalClose()}}>Fechar</button>
+                <span>Recibo de pagamento</span>
+                <p>O Pagamento <strong>{paymentError}</strong>
+                <font color="green">foi</font> concluido com sucesso</p>
+                <button onClick={()=>{modalClose()}}>Fechar</button>
           </div>
     </>
   )
