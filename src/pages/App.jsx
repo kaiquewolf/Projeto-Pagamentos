@@ -64,7 +64,7 @@ function UserList(){
           if (valueCards === "1"){
               setpaymentError("");
           } else{
-              setpaymentError(<font color="red">não</font>);
+              setpaymentError(<font color="red">não </font>);
               
           }
           setPayment("none");
@@ -117,7 +117,7 @@ function UserList(){
           <div className="modal" style={{display: resul}}>
                 <span>Recibo de pagamento</span>
                 <p>O Pagamento <strong>{paymentError}</strong>
-                <font color="green">foi</font> concluido com sucesso</p>
+                    <font color="green">foi</font> concluido com sucesso</p>
                 <button onClick={()=>{modalClose()}}>Fechar</button>
           </div>
     </>
