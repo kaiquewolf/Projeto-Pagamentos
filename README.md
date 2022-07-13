@@ -2,4 +2,4 @@ Projeto desenvolvido durante a capacitação da NewTab Academy, desenvolvimento 
     O usuário escolhe pra quem quer enviar dinheiro, seleciona o cartão coloca o valor que será enviado, e um endPoint faz a verificação do pagamento aprovando ou não a transação.
       Um modal de pagamento é aberto ao selecionar o usuário, para selecionar o cartão e colocar o valor, e é mostrado o resultado da operação em um modal.
       
-      Projeto pode ser visto neste endereço https://kaiquewolf.github.io/Projeto-pagamentos.
+  Projeto pode ser visto neste endereço https://kaiquewolf.github.io/Projeto-pagamentos.
