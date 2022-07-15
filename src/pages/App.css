@@ -66,6 +66,17 @@ align-content: center;
 color: #C8D63C;
 }
 
+.close{
+  color:white ;
+  background-color: #474971;
+  position: fixed;
+  right: 02px;
+  top:8px;
+  font-size: 17px;
+  border: none;
+
+}
+
 .modal select{
 width: 50%;
 }

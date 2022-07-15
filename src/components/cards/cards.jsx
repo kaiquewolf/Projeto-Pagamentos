@@ -1,5 +1,5 @@
 // lista dos cartoes
-let cards = [
+export const cards = [
     // cartão valido
     {
       card_number: '1111111111111111',
@@ -14,4 +14,4 @@ let cards = [
     },
   ];
   
-  export default cards;
+

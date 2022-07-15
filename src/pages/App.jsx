@@ -2,6 +2,7 @@ import './App.css';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import NumberFormat from 'react-number-format';
+import {cards} from '../components/cards/cards';
 
 
 function UserList(){
@@ -14,21 +15,7 @@ function UserList(){
     let [valueCards, setValueCards] = useState("1"); // Constante para valor do selection
     let [valueMoney, setValueMoney] = useState(""); // Constante para valor do dinheiro
     let [required, setRequired] = useState("none"); // Constante para validação de campo
-
-    let cards = [
-        // cartão valido
-        {
-          card_number: '1111111111111111',
-          cvv: 789,
-          expiry_date: '01/18',
-        },
-        // cartão invalido
-        {
-          card_number: '4111111111111234',
-          cvv: 123,
-          expiry_date: '01/20',
-        },
-      ];
+    let [payID, setPayID] = useState (0)
 
 
 
@@ -50,9 +37,10 @@ function UserList(){
 
 
   // Abrir o modal do pagameto
-  function modalPayOpen (name){
+  function modalPayOpen (name, id){
       setPayment("flex")
       setPayName(name)
+      setPayID(id)
   }
 
   // Função para dinheiro
@@ -61,29 +49,52 @@ function UserList(){
       setRequired("none");
   }
 
+    document.getElementById('select')
+
+  const Data = {
+    card_number: valueCards.card_number,
+    cvv: cards.cvv,
+    expiry_date: cards.expiry_date,
+
+    destination_user_id: payID,
+    value: valueMoney
+  }
+
+  console.log(Data)
+
+
+
+  const addPost = Data => axios.post('https://run.mocky.io/v3/533cd5d7-63d3-4488-bf8d-4bb8c751c989', Data )
+  
+
   // Abrir o modal de recibo de pagamento
   function modalResulOpen (){
 
-      if (valueMoney === ""){
-          setRequired("flex");
-      }
-      else{
-          if (valueCards === "1"){
-              setpaymentError("");
-          } else{
-              setpaymentError(<font color="red">não </font>);
-              
-          }
-          setPayment("none");
-          setResul("flex");
-          setValueMoney("");
-          setRequired("none");
-      }
-      
+
+    if (valueMoney === ""){
+        setRequired("flex");
+    }
+    else{
+        if (valueCards === "1"){
+            addPost();
+            setpaymentError("");
+        } else{
+            setpaymentError(<font color="red">não </font>);
+            
+        }
+        setPayment("none");
+        setResul("flex");
+        setValueMoney("");
+        setRequired("none");
+    }
   }
   
+function closeModal() {
+    setPayment("none");
+}
+
   // Fechamento do modal de recibo de pagamento
- function modalClose (){
+ function modalClose(){
       setResul("none");
         }
 
@@ -113,12 +124,15 @@ function UserList(){
                   <NumberFormat thousandSeparator={true} value={valueMoney} onChange={inputChange} prefix={'R$ '} inputmode="numeric" placeholder="R$ 0,00"/>
                   <p style={{display:required}}>Campo obrigatório</p>
               </div>
-              <select value={valueCards} onChange={handleChange}>
-                  <option value="1">Cartão com final {cards[0].card_number.substr(-4)}</option>
-                  <option value="2">Cartão com final {cards[1].card_number.substr(-4)}</option>
+              <select value={valueCards} onChange={handleChange} id="select">
+                  <option value="1111111111111111">Cartão com final {cards[0].card_number.substr(-4)}</option>
+                  <option value="24111111111111234">Cartão com final {cards[1].card_number.substr(-4)}</option>
               </select>
+              {/* <button className='Close' onClick={() => {modalClose ()}}>X</button> */}
+              <button className='close' onClick={() =>{closeModal()}}>X</button>
               <button onClick={()=>{modalResulOpen ()}}>Pagar</button>
           </div>
+          
 
           {/* -------------Modal de recibo de pagamento------------ */}
           <div className="modal" style={{display: resul}}>

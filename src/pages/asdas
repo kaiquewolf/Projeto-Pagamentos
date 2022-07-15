@@ -1,0 +1,19 @@
+
+
+      if (valueMoney === ""){
+          setRequired("flex");
+      }
+      else{
+          if (valueCards === "1"){
+              setpaymentError("");
+          } else{
+              setpaymentError(<font color="red">não </font>);
+              
+          }
+          setPayment("none");
+          setResul("flex");
+          setValueMoney("");
+          setRequired("none");
+      }
+      
+  }
