@@ -5,13 +5,28 @@ import NumberFormat from 'react-number-format';
 import {cards} from "../components/cards"
 
 function UserList(){
+
+    const [User, setUser] = useState([]);
+
+    // Constante de ação dos modals
+    let [payment, setPayment] = useState("none"); // Constante para abrir pagamento
+    let [payName, setPayName] = useState(""); // Constante para pegar nome usuário
+    let [resul, setResul] = useState("none"); // Constante para abrir recebimento
+    let [paymentError, setpaymentError] = useState(""); // Constante para mostrar o não do recebimento
+    let [valueCards, setValueCards] = useState("1"); // Constante para valor do selection
+    let [valueMoney, setValueMoney] = useState(""); // Constante para valor do dinheiro
+    let [required, setRequired] = useState("none"); // Constante para validação de campo
+
+
+
   // Função GET que está trazendo os dados da API
   // useEffect, necessário para que o get execute apenas uma única vez
-  let [tarefas, setTarefas] = useState([])
+  const [Users, setUsers] = useState([])
+  const [UserID, setUserID] = useState (0);
   useEffect(() => {
       axios.get('https://www.mocky.io/v2/5d531c4f2e0000620081ddce', {
           method: 'GET',
-      }).then((resp) => {setTarefas(resp.data)})
+      }).then((resp) => {setUsers(resp.data)})
   }, [])
 
   
@@ -21,14 +36,6 @@ function UserList(){
       setValueCards(event.target.value);
   }
 
-  // Constante de ação dos modals
-  let [payment, setPayment] = useState("none"); // Constante para abrir pagamento
-  let [payName, setPayName] = useState(""); // Constante para pegar nome usuário
-  let [resul, setResul] = useState("none"); // Constante para abrir recebimento
-  let [paymentError, setpaymentError] = useState(""); // Constante para mostrar o não do recebimento
-  let [valueCards, setValueCards] = useState("1"); // Constante para valor do selection
-  let [valueMoney, setValueMoney] = useState(""); // Constante para valor do dinheiro
-  let [required, setRequired] = useState("none"); // Constante para validação de campo
 
   // Abrir o modal do pagameto
   function modalPayOpen (name){
@@ -44,11 +51,13 @@ function UserList(){
 
   // Abrir o modal de recibo de pagamento
   function modalResulOpen (){
+
       if (valueMoney === ""){
           setRequired("flex");
       }
       else{
           if (valueCards === "1"){
+            
               setpaymentError("");
           } else{
               setpaymentError(<font color="red">não </font>);
@@ -58,6 +67,8 @@ function UserList(){
           setResul("flex");
           setValueMoney("");
           setRequired("none");
+          setUsers(Users)
+          setUserID(id)
       }
       
   }
@@ -72,7 +83,7 @@ function UserList(){
  // Função map percorrendo todo o array recuperado anteriormente com o axios e listando na tela cada linha do array
   return(
       <>
-      {tarefas.map((t, index) =>{
+      {Users.map((t, index) =>{
           return (
           <div className="user-container" key={'user'+index}>
               <div className="user-wrapper">
