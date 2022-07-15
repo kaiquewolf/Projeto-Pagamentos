@@ -29,7 +29,8 @@ function UserList(){
       }).then((resp) => {setUsers(resp.data)})
   }, [])
 
-  
+  UserID = Users.map(User.id)
+
 
   // Função para olhar modificação e recuperar valor no selection
   function handleChange(event){
@@ -52,12 +53,39 @@ function UserList(){
   // Abrir o modal de recibo de pagamento
   function modalResulOpen (){
 
+    const [post, setPost] = React.useState(null);
+
+    React.useEffect(() => {
+      axios.get(`${baseURL}/1`).then((response) => {
+        setPost(response.data);
+      });
+    }, []);
+  
+    function createPost() {
+      axios
+        .post(baseURL, {
+         // Card Info
+          card_number: cards.card_number,
+          cvv: cards.cvv,
+          expiry_date: cards.expiry_date,
+  
+         // Destination User ID
+          destination_user_id: UserID,
+  
+          // Value of the Transaction
+          value: valueMoney,
+  
+        })
+        .then((response) => {
+          setPost(response.data);
+        });
+    }
+
       if (valueMoney === ""){
           setRequired("flex");
       }
       else{
           if (valueCards === "1"){
-            
               setpaymentError("");
           } else{
               setpaymentError(<font color="red">não </font>);
@@ -92,7 +120,7 @@ function UserList(){
                       <p>Nome do Usuário {t.name}</p>
                       <p>ID: {t.id} - Username: {t.username}</p>
                   </div>
-                  <button onClick={()=>{modalPayOpen(t.name)}}>Pagar</button>
+                  <button onClick={()=>{modalPayOpen(t.name, t.id),createPost()}}>Pagar</button>
               </div>
           </div>
           )
