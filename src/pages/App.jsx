@@ -2,6 +2,7 @@ import './App.css';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import NumberFormat from 'react-number-format';
+import {cards} from "../components/cards"
 
 function UserList(){
   // Função GET que está trazendo os dados da API
@@ -13,21 +14,7 @@ function UserList(){
       }).then((resp) => {setTarefas(resp.data)})
   }, [])
 
-  // lista dos cartoes
-  let cards = [
-      // cartão valido
-      {
-        card_number: '1111111111111111',
-        cvv: 789,
-        expiry_date: '01/18',
-      },
-      // cartão invalido
-      {
-        card_number: '4111111111111234',
-        cvv: 123,
-        expiry_date: '01/20',
-      },
-    ];
+  
 
   // Função para olhar modificação e recuperar valor no selection
   function handleChange(event){
