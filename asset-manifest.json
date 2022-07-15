@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/Projeto-pagamentos/static/css/main.5f6d8a3f.css",
-    "main.js": "/Projeto-pagamentos/static/js/main.0fd7a8a9.js",
+    "main.js": "/Projeto-pagamentos/static/js/main.490048e2.js",
     "static/js/787.3e2c8b96.chunk.js": "/Projeto-pagamentos/static/js/787.3e2c8b96.chunk.js",
     "index.html": "/Projeto-pagamentos/index.html",
     "main.5f6d8a3f.css.map": "/Projeto-pagamentos/static/css/main.5f6d8a3f.css.map",
-    "main.0fd7a8a9.js.map": "/Projeto-pagamentos/static/js/main.0fd7a8a9.js.map",
+    "main.490048e2.js.map": "/Projeto-pagamentos/static/js/main.490048e2.js.map",
     "787.3e2c8b96.chunk.js.map": "/Projeto-pagamentos/static/js/787.3e2c8b96.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.5f6d8a3f.css",
-    "static/js/main.0fd7a8a9.js"
+    "static/js/main.490048e2.js"
   ]
 }
