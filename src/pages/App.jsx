@@ -1,8 +1,9 @@
 import './App.css';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import NumberFormat from 'react-number-format';
+// import NumberFormat from 'react-number-format';
 import {cards} from '../components/cards/cards';
+
 
 
 function UserList(){
@@ -12,7 +13,7 @@ function UserList(){
     let [payName, setPayName] = useState(""); // Constante para pegar nome usuário
     let [resul, setResul] = useState("none"); // Constante para abrir recebimento
     let [paymentError, setpaymentError] = useState(""); // Constante para mostrar o não do recebimento
-    let [valueCards, setValueCards] = useState("1"); // Constante para valor do selection
+    let [valueCards, setValueCards] = useState("1111111111111111"); // Constante para valor do selection
     let [valueMoney, setValueMoney] = useState(""); // Constante para valor do dinheiro
     let [required, setRequired] = useState("none"); // Constante para validação de campo
     let [payID, setPayID] = useState (0)
@@ -49,33 +50,35 @@ function UserList(){
       setRequired("none");
   }
 
-    document.getElementById('select')
-
-  const Data = {
-    card_number: valueCards.card_number,
-    cvv: cards.cvv,
-    expiry_date: cards.expiry_date,
-
-    destination_user_id: payID,
-    value: valueMoney
-  }
-
-  console.log(Data)
-
-
-
-  const addPost = Data => axios.post('https://run.mocky.io/v3/533cd5d7-63d3-4488-bf8d-4bb8c751c989', Data )
   
 
   // Abrir o modal de recibo de pagamento
   function modalResulOpen (){
+
+    let cardvalue = cards.find(card => valueCards)
+
+    const addPost= () => axios
+        .post('https://run.mocky.io/v3/533cd5d7-63d3-4488-bf8d-4bb8c751c989', {
+            card_number: cardvalue.card_number,
+            cvv: cardvalue.cvv,
+            expiry_date: cardvalue.expiry_date,
+            destination_user_id: payID,
+            value: valueMoney
+        })
+            .then(response => {
+                console.log(response, 'sucess')
+            })
+            .catch(response => {
+                console.log("error")
+            })
+  console.log(addPost)
 
 
     if (valueMoney === ""){
         setRequired("flex");
     }
     else{
-        if (valueCards === "1"){
+        if (valueCards === "1111111111111111"){
             addPost();
             setpaymentError("");
         } else{
@@ -91,6 +94,7 @@ function UserList(){
   
 function closeModal() {
     setPayment("none");
+    setValueMoney("");
 }
 
   // Fechamento do modal de recibo de pagamento
@@ -121,7 +125,7 @@ function closeModal() {
        <div className="modal" style={{display: payment}}>
               <span>Pagamento para <b>{payName}</b></span>
               <div className="input-money">
-                  <NumberFormat thousandSeparator={true} value={valueMoney} onChange={inputChange} prefix={'R$ '} inputmode="numeric" placeholder="R$ 0,00"/>
+                  <input type={'number'} value={valueMoney} onChange={inputChange}  placeholder="R$ 0,00"/>
                   <p style={{display:required}}>Campo obrigatório</p>
               </div>
               <select value={valueCards} onChange={handleChange} id="select">
