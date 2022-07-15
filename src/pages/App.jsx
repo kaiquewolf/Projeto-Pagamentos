@@ -2,11 +2,9 @@ import './App.css';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import NumberFormat from 'react-number-format';
-import {cards} from "../components/cards"
+
 
 function UserList(){
-
-    const [User, setUser] = useState([]);
 
     // Constante de ação dos modals
     let [payment, setPayment] = useState("none"); // Constante para abrir pagamento
@@ -17,19 +15,32 @@ function UserList(){
     let [valueMoney, setValueMoney] = useState(""); // Constante para valor do dinheiro
     let [required, setRequired] = useState("none"); // Constante para validação de campo
 
+    let cards = [
+        // cartão valido
+        {
+          card_number: '1111111111111111',
+          cvv: 789,
+          expiry_date: '01/18',
+        },
+        // cartão invalido
+        {
+          card_number: '4111111111111234',
+          cvv: 123,
+          expiry_date: '01/20',
+        },
+      ];
+
 
 
   // Função GET que está trazendo os dados da API
   // useEffect, necessário para que o get execute apenas uma única vez
   const [Users, setUsers] = useState([])
-  const [UserID, setUserID] = useState (0);
   useEffect(() => {
       axios.get('https://www.mocky.io/v2/5d531c4f2e0000620081ddce', {
           method: 'GET',
       }).then((resp) => {setUsers(resp.data)})
   }, [])
 
-  UserID = Users.map(User.id)
 
 
   // Função para olhar modificação e recuperar valor no selection
@@ -53,34 +64,6 @@ function UserList(){
   // Abrir o modal de recibo de pagamento
   function modalResulOpen (){
 
-    const [post, setPost] = React.useState(null);
-
-    React.useEffect(() => {
-      axios.get(`${baseURL}/1`).then((response) => {
-        setPost(response.data);
-      });
-    }, []);
-  
-    function createPost() {
-      axios
-        .post(baseURL, {
-         // Card Info
-          card_number: cards.card_number,
-          cvv: cards.cvv,
-          expiry_date: cards.expiry_date,
-  
-         // Destination User ID
-          destination_user_id: UserID,
-  
-          // Value of the Transaction
-          value: valueMoney,
-  
-        })
-        .then((response) => {
-          setPost(response.data);
-        });
-    }
-
       if (valueMoney === ""){
           setRequired("flex");
       }
@@ -95,8 +78,6 @@ function UserList(){
           setResul("flex");
           setValueMoney("");
           setRequired("none");
-          setUsers(Users)
-          setUserID(id)
       }
       
   }
@@ -120,7 +101,7 @@ function UserList(){
                       <p>Nome do Usuário {t.name}</p>
                       <p>ID: {t.id} - Username: {t.username}</p>
                   </div>
-                  <button onClick={()=>{modalPayOpen(t.name, t.id),createPost()}}>Pagar</button>
+                  <button onClick={()=>{modalPayOpen(t.name, t.id)}}>Pagar</button>
               </div>
           </div>
           )
