@@ -84,6 +84,7 @@ function UserList(){
             addPost();
             setpaymentError("");
         } else{
+            console.log("Não foi possivel completar o envio!! Cartão inválido")
             setpaymentError(<font color="red">não </font>);
             
         }
