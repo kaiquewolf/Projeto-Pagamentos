@@ -1,8 +1,10 @@
 import './App.css';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-// import NumberFormat from 'react-number-format';
+import NumberFormat from 'react-number-format';
 import {cards} from '../components/cards/cards';
+import currencyFormatter from '../components/currency';
+
 
 
 
@@ -102,6 +104,7 @@ function closeModal() {
       setResul("none");
         }
 
+       
 
  // Retornando o conteúdo que será renderizado em tela
  // Função map percorrendo todo o array recuperado anteriormente com o axios e listando na tela cada linha do array
@@ -125,8 +128,15 @@ function closeModal() {
        <div className="modal" style={{display: payment}}>
               <span>Pagamento para <b>{payName}</b></span>
               <div className="input-money">
-                  <input type={'number'} value={valueMoney} onChange={inputChange}  placeholder="R$ 0,00"/>
-                  <p style={{display:required}}>Campo obrigatório</p>
+              <NumberFormat
+               thousandSeparator={true}
+                value={valueMoney}
+                onChange={inputChange}
+                prefix={'R$ '}
+                inputmode="numeric"
+                placeholder="R$ 0,00"
+                format={currencyFormatter}/>
+                    <p style={{display:required}}>Campo obrigatório</p>
               </div>
               <select value={valueCards} onChange={handleChange} id="select">
                   <option value="1111111111111111">Cartão com final {cards[0].card_number.substr(-4)}</option>
